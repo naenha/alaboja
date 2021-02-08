@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from alaboja.views import main, myhome, aboutus
+from alaboja.views import main, myhome, aboutus, address
 
 appname = "alaboja"
 urlpatterns = [

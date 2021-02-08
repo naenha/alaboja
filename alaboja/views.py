@@ -12,6 +12,9 @@ def myhome(request):
 def aboutus(request):
     return render(request, 'alaboja/aboutus.html')
 
+def address(request):
+    return render(request, 'alaboja/address.html')
+
 def store(request):
     if request.method == 'POST':
         form = HouseInputForm(request.POST)
