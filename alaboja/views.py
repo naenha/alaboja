@@ -7,6 +7,16 @@ def main(request):
     return render(request, 'alaboja/main.html')
 
 def myhome(request):
+    if request.method == 'POST':
+        user = {}
+        user['people'] = request.POST['people']
+        user['category'] = request.POST['category']
+        user['rating'] = request.POST['rating']
+        user['income'] = request.POST['income']
+        user['gu'] = request.POST['gu']
+        user['area'] = request.POST['area']
+        
+        
     return render(request, 'alaboja/myhome.html')
 
 def aboutus(request):
