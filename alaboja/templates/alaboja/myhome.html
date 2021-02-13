@@ -15,133 +15,136 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">조건</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
-          data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <!--1-->
-              <li class="scrollable">
-                <a>
-                  &nbsp;&nbsp;가구원 수
-                </a>
-                <select name="people">
-                  <option value="one">1인</option>
-                  <option value="two">2인</option>
-                  <option value="three">3인</option>
-                  <option value="four">4인</option>
-                  <option value="five">5인</option>
-                  <option value="six">6인</option>
-                  <option value="seven">7인</option>
-                </select>
-              </li>
-
-              <!--2-->
-              <li class="nav-item dropdown">
-                <a>
-                  &nbsp; &nbsp;공급유형
-                </a>
-                <select name="kind">
-                  <option value="st">대학생</option>
-                  <option value="married">신혼부부</option>
-                  <option value="old">고령자</option>
-                  <option value="young">청년(사회초년생)</option>
-                  <option value="low">수급자</option>
-                </select>
-              </li>
-
-              <!--3-->
-              <li class="nav-item dropdown">
-                <a>
-                  &nbsp; &nbsp;소득분위
-                </a>
-                <select name="in_list">
-                  <option value="first">1순위</option>
-                  <option value="second">2순위</option>
-                  <option value="third">3순위</option>
-                  <option value="fourth">4순위</option>
-                  <option value="fifth">5순위</option>
-                  <option value="sixth">6순위</option>
-                  <option value="seventh">7순위</option>
-                  <option value="eighth">8순위</option>
-                  <option value="ninth">9순위</option>
-                  <option value="tenth">10순위</option>
-                </select>
-              </li>
-
-              <!--4-->
-              <li class="nav-item dropdown">
-                <a>
-                  &nbsp; &nbsp;소득/자산
-                </a>
-                <select name="income">
-                  <option value="u_50">50% 이하</option>
-                  <option value="u_70">70% 이하</option>
-                  <option value="u_100">100% 이하</option>
-                  <option value="u_120">120% 이하</option>
-                  <option value="u_150">150% 이하</option>
-                </select>
-              </li>
-
-              <!--5-->
-              <li class="nav-item dropdown">
-                <a>
-                  &nbsp; &nbsp;행정구
-                </a>
-                <select name="gu">
-                  <option value="gn">강남구</option>
-                  <option value="gd">강동구</option>
-                  <option value="gs">강서구</option>
-                  <option value="gb">강북구</option>
-                  <option value="gw">관악구</option>
-                  <option value="gj">광진구</option>
-                  <option value="gr">구로구</option>
-                  <option value="gch">금천구</option>
-                  <option value="nw">노원구</option>
-                  <option value="ddm">동대문구</option>
-                  <option value="db">도봉구</option>
-                  <option value="dj">동작구</option>
-                  <option value="mp">마포구</option>
-                  <option value="sdm">서대문구</option>
-                  <option value="sd">성동구</option>
-                  <option value="sb">성북구</option>
-                  <option value="sch">서초구</option>
-                  <option value="sp">송파구</option>
-                  <option value="ydp">영등포구</option>
-                  <option value="ys">용산구</option>
-                  <option value="ych">양천구</option>
-                  <option value="ep">은평구</option>
-                  <option value="jr">종로구</option>
-                  <option value="jung">중구</option>
-                </select>
-              </li>
+    <form action={% url 'alaboja:myhome' %} method="POST">
+      {% csrf_token %}
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="#">조건</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
               
-              <!--6-->
-              <li class="nav-item dropdown">
-                <a>
-                  &nbsp; &nbsp;희망전용면적
-                </a>
-                <select name="area">
-                  <option value="u_50">40 제곱미터 미만</option>
-                  <option value="u_70">40~60 제곱미터 미만</option>
-                  <option value="u_100">60~85 제곱미터 미만</option>
-                  <option value="u_120">85제곱미터 초과</option>
-                </select>
-              </li>
-            
-              &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-              &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-              <button class="btn btn-outline-success btn-small" type="submit">Submit</button>
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <!--1-->
+                <li class="scrollable">
+                  <a>
+                    &nbsp;&nbsp;가구원 수
+                  </a>
+                  <select name="people">
+                    <option value="one" selected>1인</option>
+                    <option value="two">2인</option>
+                    <option value="three">3인</option>
+                    <option value="four">4인</option>
+                    <option value="five">5인</option>
+                    <option value="six">6인</option>
+                    <option value="seven">7인</option>
+                  </select>
+                </li>
 
-            </ul>
+                <!--2-->
+                <li class="nav-item dropdown">
+                  <a>
+                    &nbsp; &nbsp;공급유형
+                  </a>
+                  <select name="category">
+                    <option value="student" selected>대학생</option>
+                    <option value="married">신혼부부</option>
+                    <option value="old">고령자</option>
+                    <option value="young">청년(사회초년생)</option>
+                    <option value="low">수급자</option>
+                  </select>
+                </li>
+
+                <!--3-->
+                <li class="nav-item dropdown">
+                  <a>
+                    &nbsp; &nbsp;소득분위
+                  </a>
+                  <select name="rating">
+                    <option value="first" selected>1순위</option>
+                    <option value="second">2순위</option>
+                    <option value="third">3순위</option>
+                    <option value="fourth">4순위</option>
+                    <option value="fifth">5순위</option>
+                    <option value="sixth">6순위</option>
+                    <option value="seventh">7순위</option>
+                    <option value="eighth">8순위</option>
+                    <option value="ninth">9순위</option>
+                    <option value="tenth">10순위</option>
+                  </select>
+                </li>
+
+                <!--4-->
+                <li class="nav-item dropdown">
+                  <a>
+                    &nbsp; &nbsp;소득/자산
+                  </a>
+                  <select name="income">
+                    <option value="u_50" selected>50% 이하</option>
+                    <option value="u_70">70% 이하</option>
+                    <option value="u_100">100% 이하</option>
+                    <option value="u_120">120% 이하</option>
+                    <option value="u_150">150% 이하</option>
+                  </select>
+                </li>
+
+                <!--5-->
+                <li class="nav-item dropdown">
+                  <a>
+                    &nbsp; &nbsp;행정구
+                  </a>
+                  <select name="gu">
+                    <option value="gangnam" selected>강남구</option>
+                    <option value="gangdong">강동구</option>
+                    <option value="gangseo">강서구</option>
+                    <option value="gangbuk">강북구</option>
+                    <option value="gwanak">관악구</option>
+                    <option value="gwangjin">광진구</option>
+                    <option value="guro">구로구</option>
+                    <option value="geumcheon">금천구</option>
+                    <option value="nowon">노원구</option>
+                    <option value="dongdaemun">동대문구</option>
+                    <option value="dobong">도봉구</option>
+                    <option value="dongjak">동작구</option>
+                    <option value="mapo">마포구</option>
+                    <option value="seodaemon">서대문구</option>
+                    <option value="seongdong">성동구</option>
+                    <option value="seongbuk">성북구</option>
+                    <option value="seocho">서초구</option>
+                    <option value="songpa">송파구</option>
+                    <option value="yeongdeungpo">영등포구</option>
+                    <option value="yongsan">용산구</option>
+                    <option value="yangcheon">양천구</option>
+                    <option value="eunpyeong">은평구</option>
+                    <option value="jongno">종로구</option>
+                    <option value="jung">중구</option>
+                  </select>
+                </li>
+                
+                <!--6-->
+                <li class="nav-item dropdown">
+                  <a>
+                    &nbsp; &nbsp;희망전용면적
+                  </a>
+                  <select name="area">
+                    <option value="under40" selected>40 제곱미터 미만</option>
+                    <option value="under60">40~60 제곱미터 미만</option>
+                    <option value="under85">60~85 제곱미터 미만</option>
+                    <option value="excess85">85제곱미터 초과</option>
+                  </select>
+                </li>
+              
+                &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+                &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+                <button class="btn btn-outline-success btn-small" type="submit">Submit</button>
+
+              </ul>
+            </div>
           </div>
-        </div>
-    </nav>
+      </nav>
+    </form>
 
     <div id="map" style="width:100%;height:350px;"></div>
 

@@ -7,6 +7,15 @@ def main(request):
     return render(request, 'alaboja/main.html')
 
 def myhome(request):
+    if request.method == 'POST':
+        user = {}
+        user['people'] = request.POST['people']
+        user['category'] = request.POST['category']
+        user['rating'] = request.POST['rating']
+        user['income'] = request.POST['income']
+        user['gu'] = request.POST['gu']
+        user['area'] = request.POST['area']
+        
     return render(request, 'alaboja/myhome.html')
 
 def aboutus(request):
@@ -20,13 +29,15 @@ def store(request):
         form = HouseInputForm(request.POST)
         if not form.is_valid():
             return HttpResponseBadRequest("Invalid Input")
-        csv_input = form.cleaned_data['csv_input'].split('\n')
-        header = [ col.strip() for col in csv_input[0].split(',') ]
-        lines = csv_input[1:]
+        tsv_input = form.cleaned_data['tsv_input'].split('\n')
+        header = [ col.strip() for col in tsv_input[0].split('\t') ]
+        lines = tsv_input[1:]
 
         translate = {}
         translate['단지명'] = 'name'
         translate['주소'] = 'address'
+        translate['위도'] = 'latitude'
+        translate['경도'] = 'longitude'
         translate['공급유형'] = 'category'
         translate['공급면적'] = 'area'
         translate['세대수'] = 'num'
@@ -36,10 +47,10 @@ def store(request):
         translate['소득/자산'] = 'income'
 
         for line in lines:
-            if line.count(',') != len(header) - 1:
+            if line.count('\t') != len(header) - 1:
                 continue
             options = {}
-            for idx, token in enumerate(line.split(',')):
+            for idx, token in enumerate(line.split('\t')):
                 options[translate[header[idx]]] = token.strip()
             house = House.objects.get_or_create(**options)
 
