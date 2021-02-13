@@ -11,5 +11,5 @@ class House(models.Model):
     num = models.IntegerField(default=0, help_text="세대수")
     people = models.CharField(default="00-00", max_length=10, help_text="가구원수")
     target = models.CharField(default="수급자", max_length=10, help_text="공급대상")
-    rating = models.IntegerField(default=1, help_text="소득분위")
+    rating = models.CharField(default=1, max_length=10, help_text="소득분위")
     income = models.CharField(default="50% 이하", max_length=15, help_text="소득/자산")
