@@ -57,17 +57,18 @@ def myhome(request):
             if "\"" in income: income = income[1:-1]
             if "조건" in income: 
                 count+=1; must+=1
-            elif (income == "신청자:80%이하, 세대원:100%이하") and (int(user['income']) <= 80):
-                count+=1; must+=1
+            elif income == "신청자:80%이하, 세대원:100%이하":
+                if int(user['income']) <= 80:
+                    count+=1; must+=1
             elif int(user['income']) <= int(income.split("%")[0].strip()):
                 count+=1; must+=1
             #행정구
             if user['gu'] == house.address.split()[1]: count+=1
             #희망전용면적
             if (user['area']=="40") and house.area<40: count+=1
-            elif (user['area']=="40-60") and house.area<60: count+=1
-            elif (user['area']=="60-85") and house.area<85: count+=1
-            elif (user['area']=="85") and house.area>85: count+=1
+            elif (user['area']=="40-60") and 40<=house.area<60: count+=1
+            elif (user['area']=="60-85") and 60<=house.area<85: count+=1
+            elif (user['area']=="85") and house.area>=85: count+=1
 
             if count>max_count: max_count = count
             if must == 3: house_list.append([house, count])
