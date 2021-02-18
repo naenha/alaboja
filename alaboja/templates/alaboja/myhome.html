@@ -145,10 +145,9 @@
           </div>
       </nav>
     </form>
-
     <div id="map" style="width:100%;height:350px;"></div>
     <p>
-      <button type="button" class="btn btn-outline-primary" onclick="setBounds()">지도 범위 재설정</button>
+      <button type="button" class="btn btn-outline-primary" onclick="setBounds()">지도에 위치 표시</button>
     </p>
 
     <table class="table">
@@ -163,33 +162,50 @@
           <th scope="col">전용면적</th>   <!--area-->
         </tr>
       </thead>
-      
       <tbody>
-        {% for home in recommend_list.items %}
+        {% for house, money in houses %}
         <tr>
-          <td>{{ home.address }}</td>
-          <td>{{ home.people }}</td>
-          <td>{{ home.category }}</td>
-          <td>{{ home.rating }}</td>
-          <td>{{ home.income }}</td>
-          <td>{{ home.area }}</td> 
+          <td>{{ forloop.counter }}</td>
+          <td>{{ house.address }}</td>
+          <td>{{ house.people }}</td>
+          <td>{{ house.category }}</td>
+          <td>{{ house.rating }}</td>
+          <td>{{ house.income }}</td>
+          <td>{{ house.area }}</td> 
         </tr>
         {% endfor %}
       </tbody>
     </table>
-    
+
+    <div id="home_lat" style="display: none">
+      {% for house, money in houses %}
+        {{ house.latitude }},
+      {% endfor %}
+    </div>
+    <div id="home_lng" style="display: none">
+      {% for house, money in houses %}
+        {{ house.longitude }},
+      {% endfor %}
+    </div>
+    <div id="home_address" style="display: none">
+      {% for house, money in houses %}
+        {{ house.address }},
+      {% endfor %}
+    </div>
 
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=884338eb77d514ac6bec2837834aac1d"></script>
     
     <script>
       var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
           mapOption = { 
-              center: new kakao.maps.LatLng(37.5429, 126.9887), // 지도의 중심좌표
+              center: new kakao.maps.LatLng(37.54, 126.9), // 지도의 중심좌표
               level: 6 // 지도의 확대 레벨
           };
+
       
       var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
       var mapTypeControl = new kakao.maps.MapTypeControl();
+     
 
       // 지도에 컨트롤을 추가해야 지도위에 표시됩니다
       // kakao.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
@@ -198,26 +214,30 @@
       // 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
       var zoomControl = new kakao.maps.ZoomControl();
       map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
-       
-      // 버튼을 클릭하면 아래 배열의 좌표들이 모두 보이게 지도 범위를 재설정합니다 
-      var points = [
-          {
-              content: '<div style="width:150px;text-align:center;padding:6px 0;">카카오</div>', 
-              latlng: new kakao.maps.LatLng(33.450705, 126.570677)
-          },
-          {
-              content: '<div style="width:150px;text-align:center;padding:6px 0;">생태연못</div>', 
-              latlng: new kakao.maps.LatLng(33.450936, 126.569477)
-          },
-          {
-              content: '<div style="width:150px;text-align:center;padding:6px 0;">텃밭</div>', 
-              latlng: new kakao.maps.LatLng(33.450879, 126.569940)
-          },
-          {
-              content: '<div style="width:150px;text-align:center;padding:6px 0;">근린공원</div>',
-              latlng: new kakao.maps.LatLng(33.451393, 126.570738)
-          }
-      ];
+
+      //DB에서 받아온 위도, 경도, 주소
+      var list_lat = document.getElementById("home_lat").innerText.split(',');   //string
+      var list_lng = document.getElementById("home_lng").innerText.split(',');
+      var list_address = document.getElementById("home_address").innerText.split(',');
+
+      var points = [];
+      var lat_sum = 0;
+      var lng_sum = 0;
+      
+      for(var idx=0; idx<list_lat.length - 1; idx++){
+        var data_lat = parseFloat(list_lat[idx]);
+        var data_lng = parseFloat(list_lng[idx]);
+        var data_address = list_address[idx];
+        var content = {
+            content: data_address,
+            latlng: new kakao.maps.LatLng(data_lat, data_lng)
+        };
+        points.push(content);
+        lat_sum += data_lat;
+        lng_sum += data_lng;
+      }
+      lat_mean = lat_sum/list_lat.length;
+      lng_mean = lng_sum/list_lat.length;
       
       // 지도를 재설정할 범위정보를 가지고 있을 LatLngBounds 객체를 생성합니다
       var bounds = new kakao.maps.LatLngBounds();    
@@ -262,6 +282,7 @@
               infowindow.close();
           };
       }
+
   </script>
 
 </body>
