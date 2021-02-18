@@ -165,18 +165,19 @@
       </thead>
       
       <tbody>
-        {% for home in house %}
+        {% for home in recommend_list.items %}
         <tr>
-          <td>{{home.address}}</td>
-          <td>{{home.people}}</td>
-          <td>{{home.category}}</td>
-          <td>{{home.rating}}</td>
-          <td>{{home.income}}</td>
-          <td>{{home.area}}</td>
+          <td>{{ recommend_list["home"].address }}</td>
+          <td>{{ home.people }}</td>
+          <td>{{ home.category }}</td>
+          <td>{{ home.rating }}</td>
+          <td>{{ home.income }}</td>
+          <td>{{ home.area }}</td> 
         </tr>
+        {% endfor %}
       </tbody>
     </table>
-    {% endfor %}
+    
 
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=884338eb77d514ac6bec2837834aac1d"></script>
     

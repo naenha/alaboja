@@ -2,6 +2,7 @@ from django.db import models
 
 # Create your models here.
 class House(models.Model):
+    objects = models.Manager()
     name = models.CharField(default="매입다가구", max_length=20, help_text="단지명")
     address = models.CharField(default="서울특별시 종로구 대학로5가길", max_length=100, help_text="주소")
     latitude = models.FloatField(default=0, help_text="위도")
