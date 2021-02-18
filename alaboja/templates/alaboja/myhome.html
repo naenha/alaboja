@@ -145,7 +145,6 @@
           </div>
       </nav>
     </form>
-
     <div id="map" style="width:100%;height:350px;"></div>
 
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=884338eb77d514ac6bec2837834aac1d"></script>
@@ -234,6 +233,30 @@
           };
       }
   </script>
-
+  <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">주소</th>       <!--address-->
+          <th scope="col">가구원 수</th>  <!--people-->
+          <th scope="col">공급유형</th>   <!--category-->
+          <th scope="col">소득분위</th>   <!--rating-->
+          <th scope="col">소득/자산</th>   <!--income-->
+          <th scope="col">전용면적</th>   <!--area-->
+        </tr>
+      </thead>
+      <tbody>
+        {% for house, money in houses %}
+        <tr>
+          <td>{{ house.address }}</td>
+          <td>{{ house.people }}</td>
+          <td>{{ house.category }}</td>
+          <td>{{ house.rating }}</td>
+          <td>{{ house.income }}</td>
+          <td>{{ house.area }}</td> 
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
 </body>
 </html>

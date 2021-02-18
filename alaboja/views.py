@@ -24,7 +24,7 @@ def myhome(request):
             return "시중 전세 시세의 30% 수준(평균 보증금 1,800만원 임대료 19만원)"
         else:
             return "시중 전세 시세의 90% 수준"
-    recommend_list = {}
+    recommend_list = []
     if request.method == 'POST':
         user = {}
         user['people'] = request.POST['people']#가구원수
@@ -77,21 +77,21 @@ def myhome(request):
         if len(house_list) == 0:
             for house in House.objects.all():
                 if house.category == "공공임대(50년)":
-                    recommend_list[house] = "시중 전세 시세의 90% 수준"
+                    recommend_list.append((house, "시중 전세 시세의 90% 수준"))
         #사용자의 조건에 가장 많이 부합하는 조건을 갖는 주택 추천
         else:
-            temp = {}
+            temp = []
             for house, count in house_list:
                 target = house.target.strip()
                 if house.target[0]=="\"": target = house.target[1:-1]
                 if (count==max_count):
                     if user['category'] in target.split(','):
-                        recommend_list[house] = money(house)
+                        recommend_list.apppend((house, money(house)))
                     else:
-                        temp[house] = money(house)
+                        temp.append((house, money(house)))
             if len(recommend_list)==0: recommend_list = temp
-            
-    return render(request, 'alaboja/myhome.html', recommend_list)
+    context = {'houses':recommend_list}
+    return render(request, 'alaboja/myhome.html', context)
 
 def aboutus(request):
     return render(request, 'alaboja/aboutus.html')
